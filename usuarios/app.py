@@ -34,7 +34,7 @@ api = Api(app)
 api.add_resource(VistaSignIn, '/users')
 #api.add_resource(VistaAuthenticator, '/users/auth')
 #api.add_resource(VistaUserInformation, '/users/me')
-#api.add_resource(Health, '/users/ping')
+api.add_resource(Health, '/users/ping')
 #api.add_resource(VistaUserWebhook, '/users/webhook')
 #api.add_resource(VistaManualVerification, '/users/manual-verification')
 
@@ -53,4 +53,4 @@ def invalid_callback(callback):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run(debug=True, host='0.0.0.0', port=3000)

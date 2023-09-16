@@ -34,33 +34,29 @@ class VistaSignIn(Resource):
             else:
                 username1 = request.json.get("username", None)
                 password1 = request.json.get("password", None)
-                saltValue = get_random_string(5)
-                # DROP TYPE public."isverified";
-                nuevo_usuario = Usuario(username=request.json["username"],
-                                                email=request.json["email"],
-                                                password = generate_password_hash(request.json["password"]),
-                                                dni=request.json.get("dni"),
-                                                fullName=request.json.get("fullName"),
-                                                phone=request.json.get("phone"),
-                                                isVerified=IsVerified.POR_VERIFICAR,
-                                                salt = saltValue,
-                                                token=create_access_token(identity=username1, expires_delta=timedelta(minutes=10)),
-                                                expireAt= datetime.now(timezone.utc) + timedelta(minutes=10),
-                                                createdAt= datetime.now(timezone.utc)
-                                                )
+                new_user = Usuario(
+                                    email=request.json["email"],
+                                    username=request.json["username"],
+                                    password = generate_password_hash(request.json["password"]),
+                                    fullName=request.json.get("fullName"),
+                                    birthdate=request.json.get("birthdate"),
+                                    address=request.json.get("address"),
+                                    phone=request.json.get("phone"),
+                                    postalCode=request.json.get("postalCode"),
+                                    roleID=request.json.get("roleID"),
+                                    bankAccountNumber=request.json.get("bankAccountNumber"),
+                                    bankAccountId=request.json.get("bankAccountId"),
+                                    createdAt= datetime.now(timezone.utc)
+                                )
 
-                db.session.add(nuevo_usuario)
+                db.session.add(new_user)
                 db.session.commit()
                 user = {
-                    "id": nuevo_usuario.id,
-                    "username": nuevo_usuario.username,
-                    "email": nuevo_usuario.email,
-                    "dni": nuevo_usuario.dni,
-                    "fullName": nuevo_usuario.fullName,
-                    "phone": nuevo_usuario.phone
+                    "id": new_user.id,
+                    "username": new_user.username,
+                    "email": new_user.email
                 }
-                produce_verification(json.dumps(user).encode())
-            return usuario_schema_post.dump(nuevo_usuario), 201   
+            return usuario_schema_post.dump(new_user), 201   
         except TypeError:
             return {'message': 'Missing fields'}, 400
         except KeyError:
