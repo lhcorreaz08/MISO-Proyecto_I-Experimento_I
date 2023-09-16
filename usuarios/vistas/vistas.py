@@ -7,34 +7,19 @@ from flask import request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from flask_restful import Resource
 from marshmallow import ValidationError
-from modelos import db, Usuario, UsuarioSchema, UsuarioSchemaGet, UsuarioSchemaPost, UsuarioSchemaPostAuth, IsVerified
-from pubservice import Publisher
+from modelos import db, Usuario, UsuarioSchemaGet, UsuarioSchemaPost
 from hashlib import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timezone
 from datetime import timedelta
 import os
-from google.cloud import tasks_v2
 import json
 
-# Se leen las variables de entorno especificadas
-location_id = os.environ.get('LOCATION_ID', '')
-secret_token = os.environ.get('SECRET_TOKEN', '')
-projec_id = os.environ.get('PROJECT_ID', '')
-queue_id = os.environ.get('QUEUE_ID', '')
-url_function = os.environ.get('URL_FUNCTION', '')
 
-client = tasks_v2.CloudTasksClient()
 
-usuario_schema = UsuarioSchema()
 usuario_schema_get = UsuarioSchemaGet()
 usuario_schema_post = UsuarioSchemaPost() 
-usuario_schema_postauth = UsuarioSchemaPostAuth()
 
-class VistaTest(Resource):
-    @jwt_required()
-    def post(self):
-        return {"Hola": "Mundo"}
 
 class VistaSignIn(Resource):
 

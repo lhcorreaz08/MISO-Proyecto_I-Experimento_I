@@ -5,8 +5,7 @@ from flask_restful import Api
 from dotenv import load_dotenv
 from os import getenv
 from modelos import db
-from vistas import Health, VistaSignIn, VistaAuthenticator, VistaUserInformation, VistaTest, VistaUserWebhook, VistaManualVerification
-import os
+from vistas import Health, VistaSignIn
 
 def set_env():
     load_dotenv()
@@ -33,11 +32,11 @@ cors = CORS(app)
 
 api = Api(app)
 api.add_resource(VistaSignIn, '/users')
-api.add_resource(VistaAuthenticator, '/users/auth')
-api.add_resource(VistaUserInformation, '/users/me')
-api.add_resource(Health, '/users/ping')
-api.add_resource(VistaUserWebhook, '/users/webhook')
-api.add_resource(VistaManualVerification, '/users/manual-verification')
+#api.add_resource(VistaAuthenticator, '/users/auth')
+#api.add_resource(VistaUserInformation, '/users/me')
+#api.add_resource(Health, '/users/ping')
+#api.add_resource(VistaUserWebhook, '/users/webhook')
+#api.add_resource(VistaManualVerification, '/users/manual-verification')
 
 
 jwt = JWTManager(app)
@@ -53,6 +52,5 @@ def invalid_callback(callback):
     return unauthorized_response()
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 3000))
-    app.run(debug=True, host='0.0.0.0', port=port)         
+if __name__ == '__main__':
+    app.run(debug=True, port=3000)

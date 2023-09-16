@@ -13,12 +13,10 @@ six==1.16.0
 SQLAlchemy==1.4.18
 Werkzeug==2.2.2
 python-dotenv==0.21.0
-psycopg2-binary==2.9.4
+psycopg2-binary
 coverage==7.1.0
 requests
-google-cloud-tasks==2.7.1
 Click==8.0
 itsdangerous==2.0
 Jinja2==3.0
-google-cloud-pubsub
 wheel==0.40.0
