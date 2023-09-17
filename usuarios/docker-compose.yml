@@ -1,4 +1,4 @@
-version: '1.0'
+version: '3'
 services:
   appoffer:
     build:
@@ -11,6 +11,6 @@ services:
     depends_on:
       - dboffer
   dboffer:
-    image: postgres:13-alpine
+    image: postgres:15.2-alpine
     env_file:
       - ./.env.db
