@@ -13,10 +13,11 @@ RUN pip install -r requirements.txt
 # Copiar el contenido del directorio actual en la imagen de docker
 COPY . /appusuarios
 
-COPY ./entrypoint.sh /appusuarios/entrypoint.sh
-RUN ["chmod", "+x", "/appusuarios/entrypoint.sh"]
-# Configurar el contenedor para correr en una manera ejectuble
-ENTRYPOINT ["/appusuarios/entrypoint.sh"]
+COPY entrypoint.sh /appusuarios/
+
+RUN chmod +x /appusuarios/entrypoint.sh
+
+RUN /appusuarios/entrypoint.sh
 
 # Archivo principal donde corre el API
 CMD [ "python", "app.py" ]
