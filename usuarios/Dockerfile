@@ -4,6 +4,8 @@ FROM python:3.8-alpine
 # Copiar requerimientos para ejecutar el programa
 COPY ./requirements.txt /appusuarios/requirements.txt
 
+EXPOSE 80
+
 # Cambiar de directorio de trabajo a donde esta el ejectuable del API
 WORKDIR /appusuarios
 
